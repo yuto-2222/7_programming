@@ -13,7 +13,7 @@
                 <li>トップ</li>
                 <li>プロフィール</li>
                 <li>D.I.Blogについて</li>
-                <li><A HREF = "regist.php">アカウント登録</A></li>
+                <li><A HREF = "regist.html">アカウント登録</A></li>
                 <li>問い合わせ</li>
                 <li>その他</li>
             </ul>
@@ -24,35 +24,35 @@
             <h1>アカウント登録画面</h1>
            
             <form method = "post" action = "regist_confirm.php">
-            
+           
                 <div>
                     <label>名前（性）</label>
-                    <input type = "text" name = "family name" size = "50">
+                    <input type = "text" name = "FamilyName" size = "50" value="" required>               
                 </div><br>
 
                 <div>
                     <label>名前（名）</label>
-                    <input type = "text" name = "last name" size = "50">
+                    <input type = "text" name = "LastName" size = "50" value="" required> 
                 </div><br>
 
                 <div>
                     <label>カナ（性）</label>
-                    <input type = "text" name = "family name kana" size = "50">
+                    <input type = "text" name = "FamilyNameKana" size = "50" value="" required>
                 </div><br>
 
                 <div>
                     <label>カナ（名）</label>
-                    <input type = "text" name = "last name kana" size = "50">
+                    <input type = "text" name = "LastNameKana" size = "50" value="" required>
                 </div><br>
             
                 <div>
                     <label>メールアドレス</label>
-                    <input type = "text" name = "mail" size = "50">
+                    <input type = "mail" name = "mail" size = "50" value="" required>
                 </div><br>
 
                 <div>
                     <label>パスワード</label>
-                    <input type = "text" name = "password" size = "50">
+                    <input type = "text" name = "password" size = "50" value="" required>
                 </div><br>
 
                 <div>
@@ -63,12 +63,12 @@
 
                 <div>
                     <label>郵便番号</label>
-                    <input type = "text" name = "postal code" size = "50">
+                    <input type = "text" name = "PostalCode" size = "50" value="" required>
                 </div><br>
 
                 <div>
                     <label>住所（都道府県）</label>
-                        <select name="prefecture">
+                        <select name="prefecture" required>
                             <option value="">空欄</option>
                             <option value="北海道">北海道</option>
                             <option value="青森県">青森県</option>
@@ -122,23 +122,21 @@
                 
                 <div>
                     <label>住所（市区町村）</label>
-                    <input type = "text" name = "address 1" size = "50">
+                    <input type = "text" name = "address1" size = "50" value="" required>
                 </div><br>
 
                 <div>
                     <label>住所（番地）</label>
-                    <input type = "text" name = "address 2" size = "50">
+                    <input type = "text" name = "address2" size = "50" value="" required>
                 </div><br>
 
                 <div>
                     <label>アカウント権限</label>
                     <script type="text/javascript"></script>
-                    <form>
-                        <select name="authority">
+                        <select name="authority" required>
                             <option value="error">一般</option>
                             <option value="001">管理者</option>
                         </select>
-                    </form>
                 </div><br>
                 
                 <div>
@@ -156,3 +154,5 @@
         </footer>
 
     </body>
+
+</html>
