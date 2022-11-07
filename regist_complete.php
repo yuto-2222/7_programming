@@ -78,7 +78,7 @@ $dbh = null;
         </div>
 
         <form action="index_blog.html">                
-            <input type = "submit" class = "button1" value = "TOPページへ戻る">
+            <input type = "button" class = "button1" value = "TOPページへ戻る">
         </form>
 
         <footer>

@@ -27,44 +27,51 @@
            
                 <div>
                     <label>名前（性）</label>
-                    <input type = "text" name = "FamilyName" size = "50" value="" required>               
-                </div><br>
+                    <input type = "text" name = "FamilyName" id = "FamilyName" size = "50" value="" required>               
+                </div>
+                <div class="err-msg-FamilyName"></div><br>
 
                 <div>
                     <label>名前（名）</label>
-                    <input type = "text" name = "LastName" size = "50" value="" required> 
-                </div><br>
+                    <input type = "text" name = "LastName" id = "LastName" size = "50" value="" required> 
+                </div>
+                <div class="err-msg-LastName"></div><br>
 
                 <div>
                     <label>カナ（性）</label>
-                    <input type = "text" name = "FamilyNameKana" size = "50" value="" required>
-                </div><br>
+                    <input type = "text" name = "FamilyNameKana" id = "FamilyNameKana" size = "50" value="" required>
+                </div>
+                <div class="err-msg-FamilyNameKana"></div><br>
 
                 <div>
                     <label>カナ（名）</label>
-                    <input type = "text" name = "LastNameKana" size = "50" value="" required>
-                </div><br>
+                    <input type = "text" name = "LastNameKana" id = "LastNameKana" size = "50" value="" required>
+                </div><div class="err-msg-LastNameKana"></div>
+                <br>
             
                 <div>
                     <label>メールアドレス</label>
-                    <input type = "mail" name = "mail" size = "50" value="" required>
-                </div><br>
+                    <input type = "mail" name = "mail" id = "mail" size = "50" value="" required>
+                </div>
+                <div class="err-msg-mail"></div><br>
 
                 <div>
                     <label>パスワード</label>
-                    <input type = "text" name = "password" size = "50" value="" required>
-                </div><br>
+                    <input type = "text" name = "password" id = "password" size = "50" value="" required>
+                </div>
+                <div class="err-msg-password"></div><br>
 
                 <div>
                     <label>性別</label>
-                    <input type = "radio" name = "gender" value="male" checked>男
-                    <input type = "radio" name = "gender" value="female">女
+                    <input type = "radio" name = "gender" value="男" checked>男
+                    <input type = "radio" name = "gender" value="女">女
                 </div><br>
 
                 <div>
-                    <label>郵便番号</label>
-                    <input type = "text" name = "PostalCode" size = "50" value="" required>
-                </div><br>
+                    <label>郵便番号（ハイフンなし）</label>
+                    <input type = "text" name = "PostalCode" id = "PostalCode" size = "50" value="" required>
+                </div>
+                <div class="err-msg-PostalCode"></div><br>
 
                 <div>
                     <label>住所（都道府県）</label>
@@ -122,25 +129,27 @@
                 
                 <div>
                     <label>住所（市区町村）</label>
-                    <input type = "text" name = "address1" size = "50" value="" required>
-                </div><br>
+                    <input type = "text" name = "address1" id = "address1" size = "50" value="" required>
+                </div>
+                <div class="err-msg-address1"></div><br>
 
                 <div>
                     <label>住所（番地）</label>
-                    <input type = "text" name = "address2" size = "50" value="" required>
-                </div><br>
+                    <input type = "text" name = "address2" id = "address2" size = "50" value="" required>
+                </div>
+                <div class="err-msg-address2"></div><br>
 
                 <div>
                     <label>アカウント権限</label>
                     <script type="text/javascript"></script>
                         <select name="authority" required>
-                            <option value="error">一般</option>
-                            <option value="001">管理者</option>
+                            <option value="一般">一般</option>
+                            <option value="管理者">管理者</option>
                         </select>
                 </div><br>
                 
                 <div>
-                    <input type = "submit" value = "確認する">
+                    <input type = "submit" class="submit" value = "確認する">
                 </div>
                                 
             </form>
@@ -154,5 +163,325 @@
         </footer>
 
     </body>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+        
+        // 「送信」ボタンの要素を取得
+        const submit = document.querySelector('.submit');
+        
+        // 「送信」ボタンの要素にクリックイベントを設定する
+        submit.addEventListener('click', (e) => {
+            // デフォルトアクションをキャンセル
+            e.preventDefault();
+        
+            // 「名前（性）」入力欄チェック
+            // フォームの要素を取得
+            const FamilyName = document.querySelector('#FamilyName');
+            // エラーメッセージを表示させる要素を取得
+            const errMsgFamilyName = document.querySelector('.err-msg-FamilyName');
+            if(!FamilyName.value){
+                // クラスを追加(エラーメッセージを表示する)
+                errMsgFamilyName.classList.add('form-invalid');
+                // エラーメッセージのテキスト
+                errMsgFamilyName.textContent = 'お名前が入力されていません';
+                // クラスを追加(フォームの枠線を赤くする)
+                FamilyName.classList.add('input-invalid');
+                // 後続の処理を止める
+                return;
+                            
+            }else{
+                // エラーメッセージのテキストに空文字を代入
+                errMsgFamilyName.textContent ='';
+                // クラスを削除
+                FamilyName.classList.remove('input-invalid');
+                // 名前（性）が10文字以内のひらがな、漢字であるかどうかのチェック
+                if(!FamilyName.value.match(/^([\u4E00-\u9FFF\u3005-\u3007\ぁ-ゞ]{1,10})$/)){
+                    errMsgFamilyName.classList.add('form-invalid');
+                    errMsgFamilyName.textContent = 'ひらがな、漢字10文字以内で入力してください';
+                    FamilyName.classList.add('input-invalid');
+                    return;
+                }else{
+                    // エラーメッセージのテキストに空文字を代入
+                    errMsgFamilyName.textContent ='';
+                    // クラスを削除
+                    FamilyName.classList.remove('input-invalid');
+                }
+            }
+        
+            // 「名前（名）」入力欄チェック
+            // フォームの要素を取得
+            const LastName = document.querySelector('#LastName');
+            // エラーメッセージを表示させる要素を取得
+            const errMsgLastName = document.querySelector('.err-msg-LastName');
+            if(!LastName.value){
+                // クラスを追加(エラーメッセージを表示する)
+                errMsgLastName.classList.add('form-invalid');
+                // エラーメッセージのテキスト
+                errMsgLastName.textContent = 'お名前が入力されていません';
+                // クラスを追加(フォームの枠線を赤くする)
+                LastName.classList.add('input-invalid');
+                // 後続の処理を止める
+                return;
+                            
+            }else{
+                // エラーメッセージのテキストに空文字を代入
+                errMsgLastName.textContent ='';
+                // クラスを削除
+                LastName.classList.remove('input-invalid');
+                // 名前（名）が10文字以内のひらがな、漢字であるかどうかのチェック
+                if(!LastName.value.match(/^([\u4E00-\u9FFF\u3005-\u3007\ぁ-ゞ]{1,10})$/)){
+                    errMsgLastName.classList.add('form-invalid');
+                    errMsgLastName.textContent = 'ひらがな、漢字10文字以内で入力してください';
+                    LastName.classList.add('input-invalid');
+                    return;
+                }else{
+                    // エラーメッセージのテキストに空文字を代入
+                    errMsgLastName.textContent ='';
+                    // クラスを削除
+                    LastName.classList.remove('input-invalid');
+                }
+            }
+
+            // 「カナ（性）」入力欄チェック
+            // フォームの要素を取得
+            const FamilyNameKana = document.querySelector('#FamilyNameKana');
+            // エラーメッセージを表示させる要素を取得
+            const errMsgFamilyNameKana = document.querySelector('.err-msg-FamilyNameKana');
+            if(!FamilyNameKana.value){
+                // クラスを追加(エラーメッセージを表示する)
+                errMsgFamilyNameKana.classList.add('form-invalid');
+                // エラーメッセージのテキスト
+                errMsgFamilyNameKana.textContent = 'お名前が入力されていません';
+                // クラスを追加(フォームの枠線を赤くする)
+                FamilyNameKana.classList.add('input-invalid');
+                // 後続の処理を止める
+                return;
+                            
+            }else{
+                // エラーメッセージのテキストに空文字を代入
+                errMsgFamilyNameKana.textContent ='';
+                // クラスを削除
+                FamilyNameKana.classList.remove('input-invalid');
+                // カナ（性）が10文字以内のカタカナであるかどうかのチェック
+                if(!FamilyNameKana.value.match(/^([ァ-ンヴー]{1,10})$/)){
+                    errMsgFamilyNameKana.classList.add('form-invalid');
+                    errMsgFamilyNameKana.textContent = 'カタカナ10文字以内で入力してください';
+                    FamilyNameKana.classList.add('input-invalid');
+                    return;
+                }else{
+                    // エラーメッセージのテキストに空文字を代入
+                    errMsgFamilyNameKana.textContent ='';
+                    // クラスを削除
+                    FamilyNameKana.classList.remove('input-invalid');
+                }
+            }
+
+            // 「カナ（名）」入力欄チェック
+            // フォームの要素を取得
+            const LastNameKana = document.querySelector('#LastNameKana');
+            // エラーメッセージを表示させる要素を取得
+            const errMsgLastNameKana = document.querySelector('.err-msg-LastNameKana');
+            if(!LastNameKana.value){
+                // クラスを追加(エラーメッセージを表示する)
+                errMsgLastNameKana.classList.add('form-invalid');
+                // エラーメッセージのテキスト
+                errMsgLastNameKana.textContent = 'お名前が入力されていません';
+                // クラスを追加(フォームの枠線を赤くする)
+                LastNameKana.classList.add('input-invalid');
+                // 後続の処理を止める
+                return;
+                            
+            }else{
+                // エラーメッセージのテキストに空文字を代入
+                errMsgLastNameKana.textContent ='';
+                // クラスを削除
+                LastNameKana.classList.remove('input-invalid');
+                // カナ（名）が10文字以内のカタカナであるかどうかのチェック
+                if(!LastNameKana.value.match(/^([ァ-ンヴー]{1,10})$/)){
+                    errMsgLastNameKana.classList.add('form-invalid');
+                    errMsgLastNameKana.textContent = 'カタカナ10文字以内で入力してください';
+                    LastNameKana.classList.add('input-invalid');
+                    return;
+                }else{
+                    // エラーメッセージのテキストに空文字を代入
+                    errMsgLastNameKana.textContent ='';
+                    // クラスを削除
+                    LastNameKana.classList.remove('input-invalid');
+                }
+            }
+
+            // 「メール」入力欄チェック
+            // フォームの要素を取得
+            const mail = document.querySelector('#mail');
+            // エラーメッセージを表示させる要素を取得
+            const errMsgmail = document.querySelector('.err-msg-mail');
+            if(!mail.value){
+                // クラスを追加(エラーメッセージを表示する)
+                errMsgmail.classList.add('form-invalid');
+                // エラーメッセージのテキスト
+                errMsgmail.textContent = 'メールアドレスが入力されていません';
+                // クラスを追加(フォームの枠線を赤くする)
+                mail.classList.add('input-invalid');
+                // 後続の処理を止める
+                return;
+                            
+            }else{
+                // エラーメッセージのテキストに空文字を代入
+                errMsgmail.textContent ='';
+                // クラスを削除
+                mail.classList.remove('input-invalid');
+                // メールが10文字以内のひらがな、漢字であるかどうかのチェック
+                if(!mail.value.match(/^([a-zA-Z0-9]+[a-zA-Z0-9\._-]*@[a-zA-Z0-9_-]+[a-zA-Z0-9\._-]+)$/)){
+                    errMsgmail.classList.add('form-invalid');
+                    errMsgmail.textContent = '  メールアドレスをご確認ください';
+                    mail.classList.add('input-invalid');
+                    return;
+                }else{
+                    // エラーメッセージのテキストに空文字を代入
+                    errMsgmail.textContent ='';
+                    // クラスを削除
+                    mail.classList.remove('input-invalid');
+                }
+            }
+
+            // 「パスワード」入力欄チェック
+            // フォームの要素を取得
+            const password = document.querySelector('#password');
+            // エラーメッセージを表示させる要素を取得
+            const errMsgpassword = document.querySelector('.err-msg-password');
+            if(!password.value){
+                // クラスを追加(エラーメッセージを表示する)
+                errMsgpassword.classList.add('form-invalid');
+                // エラーメッセージのテキスト
+                errMsgpassword.textContent = 'パスワードが入力されていません';
+                // クラスを追加(フォームの枠線を赤くする)
+                password.classList.add('input-invalid');
+                // 後続の処理を止める
+                return;
+            }else{
+                // エラーメッセージのテキストに空文字を代入
+                errMsgpassword.textContent ='';
+                // クラスを削除
+                password.classList.remove('input-invalid');
+            // パスワードが10文字以内の半角英数字であるかどうかのチェック
+            if(!password.value.match(/^([a-zA-Z0-9]{1,10})$/)){
+                errMsgpassword.classList.add('form-invalid');
+                errMsgpassword.textContent = '半角英数字10文字以内で入力してください';
+                password.classList.add('input-invalid');
+                return;
+            }else{
+                // 「パスワード」入力欄の形式チェック
+                errMsgpassword.textContent ='';
+                // クラスを削除
+                password.classList.remove('input-invalid');
+            }
+            }
+
+            // 「郵便番号」入力欄チェック
+            // フォームの要素を取得
+            const PostalCode = document.querySelector('#PostalCode');
+            // エラーメッセージを表示させる要素を取得
+            const errMsgPostalCode = document.querySelector('.err-msg-PostalCode');
+            if(!PostalCode.value){
+                // クラスを追加(エラーメッセージを表示する)
+                errMsgPostalCode.classList.add('form-invalid');
+                // エラーメッセージのテキスト
+                errMsgPostalCode.textContent = '郵便番号が入力されていません';
+                // クラスを追加(フォームの枠線を赤くする)
+                PostalCode.classList.add('input-invalid');
+                // 後続の処理を止める
+                return;
+                            
+            }else{
+                // エラーメッセージのテキストに空文字を代入
+                errMsgPostalCode.textContent ='';
+                // クラスを削除
+                PostalCode.classList.remove('input-invalid');
+                // 郵便番号が7文字の数字であるかどうかのチェック
+                if(!PostalCode.value.match(/^([0-9]{7})$/)){
+                    errMsgPostalCode.classList.add('form-invalid');
+                    errMsgPostalCode.textContent = '数字7文字で入力してください';
+                    PostalCode.classList.add('input-invalid');
+                    return;
+                }else{
+                    // エラーメッセージのテキストに空文字を代入
+                    errMsgPostalCode.textContent ='';
+                    // クラスを削除
+                    PostalCode.classList.remove('input-invalid');
+                }
+            }
+
+            // 「住所（市区町村）」入力欄チェック
+            // フォームの要素を取得
+            const address1 = document.querySelector('#address1');
+            // エラーメッセージを表示させる要素を取得
+            const errMsgaddress1 = document.querySelector('.err-msg-address1');
+            if(!address1.value){
+                // クラスを追加(エラーメッセージを表示する)
+                errMsgaddress1.classList.add('form-invalid');
+                // エラーメッセージのテキスト
+                errMsgaddress1.textContent = '住所が入力されていません';
+                // クラスを追加(フォームの枠線を赤くする)
+                address1.classList.add('input-invalid');
+                // 後続の処理を止める
+                return;
+                            
+            }else{
+                // エラーメッセージのテキストに空文字を代入
+                errMsgaddress1.textContent ='';
+                // クラスを削除
+                address1.classList.remove('input-invalid');
+                // 住所（市区町村）が10文字以内のひらがな、漢字、数字、カタカナ、記号（ハイフンとスペース）であるかどうかのチェック
+                if(!address1.value.match(/^([\u4E00-\u9FFF\u3005-\u3007\ぁ-ゞ0-9ァ-ンヴー\-\s]{1,10})$/)){
+                    errMsgaddress1.classList.add('form-invalid');
+                    errMsgaddress1.textContent = 'ひらがな、漢字で10文字以内で入力してください';
+                    address1.classList.add('input-invalid');
+                    return;
+                }else{
+                    // エラーメッセージのテキストに空文字を代入
+                    errMsgaddress1.textContent ='';
+                    // クラスを削除
+                    address1.classList.remove('input-invalid');
+                }
+            }
+
+            // 「住所（番地）」入力欄チェック
+            // フォームの要素を取得
+            const address2 = document.querySelector('#address2');
+            // エラーメッセージを表示させる要素を取得
+            const errMsgaddress2 = document.querySelector('.err-msg-address2');
+            if(!address2.value){
+                // クラスを追加(エラーメッセージを表示する)
+                errMsgaddress2.classList.add('form-invalid');
+                // エラーメッセージのテキスト
+                errMsgaddress2.textContent = '住所が入力されていません';
+                // クラスを追加(フォームの枠線を赤くする)
+                address2.classList.add('input-invalid');
+                // 後続の処理を止める
+                return;
+                            
+            }else{
+                // エラーメッセージのテキストに空文字を代入
+                errMsgaddress2.textContent ='';
+                // クラスを削除
+                address2.classList.remove('input-invalid');
+                // 住所（番地）が100文字以内のひらがな、漢字、数字、カタカナ、記号（ハイフンとスペース）であるかどうかのチェック
+                if(!address2.value.match(/^([\u4E00-\u9FFF\u3005-\u3007\ぁ-ゞ0-9ァ-ンヴー\-\s]{1,100})$/)){
+                    errMsgaddress2.classList.add('form-invalid');
+                    errMsgaddress2.textContent = 'ひらがな、漢字で10文字以内で入力してください';
+                    address2.classList.add('input-invalid');
+                    return;
+                }else{
+                    // エラーメッセージのテキストに空文字を代入
+                    errMsgaddress2.textContent ='';
+                    // クラスを削除
+                    address2.classList.remove('input-invalid');
+                }
+            }
+
+        }, false);
+        }, false);
+        </script>
 
 </html>
