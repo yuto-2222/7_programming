@@ -23,7 +23,7 @@
 
             <h1>アカウント登録画面</h1>
            
-            <form method = "post" action = "regist_confirm.php">
+            <form method = "post" action = "regist_confirm.php" id="submit_form">
            
                 <div>
                     <label>名前（性）</label>
@@ -479,6 +479,9 @@
                     address2.classList.remove('input-invalid');
                 }
             }
+
+            //submit_formのidがついた要素(form)を探し，それを実行
+            document.querySelector('#submit_form').submit();
 
         }, false);
         }, false);

@@ -13,9 +13,9 @@ $prefecture = $_POST["prefecture"];
 $address_1 = $_POST["address1"];
 $address_2 = $_POST["address2"];
 $authority = $_POST["authority"];
-$delete_flag = "1";
-$registered_time = "1";
-$update_time = "1";
+$delete_flag = "";
+$registered_time = NULL;
+$update_time = NULL;
 
 mb_internal_encoding("utf8");
 
@@ -23,7 +23,9 @@ $dbh = new PDO("mysql:dbname=lesson01;host=localhost;","root","");
 
 $dbh -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-$sql = "INSERT INTO 7_programming(family_name,last_name,family_name_kana,last_name_kana,mail,password,gender,postal_code,prefecture,address_1,address_2,authority,delete_flag,registered_time,update_time) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+// $sql = "INSERT INTO 7_programming(family_name,last_name,family_name_kana,last_name_kana,mail,password,gender,postal_code,prefecture,address_1,address_2,authority,delete_flag,registered_time,update_time) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+$sql = "INSERT INTO programming(family_name,last_name,family_name_kana,last_name_kana,mail,password,gender,postal_code,prefecture,address_1,address_2,authority,delete_flag,registered_time,update_time) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
 $stmt = $dbh -> prepare($sql);
 // $data[] = $id;
 $data[] = $family_name;
@@ -77,7 +79,7 @@ $dbh = null;
             <p>登録完了しました</p>
         </div>
 
-        <form action="index_blog.html">                
+        <form action = "regist.html">                
             <input type = "button" class = "button1" value = "TOPページへ戻る">
         </form>
 
